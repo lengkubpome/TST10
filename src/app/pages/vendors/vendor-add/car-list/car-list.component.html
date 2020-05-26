@@ -1,0 +1,92 @@
+<form [formGroup]="carsFormGroup">
+
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+
+    <div fxFill fxLayout="row" fxLayoutAlign="center center"
+    fxLayoutGap="10px">
+      <button mat-raised-button color="primary" type="button" (click)="addCar()" >
+        <!-- <mat-icon>local_shipping</mat-icon> -->
+        <div class="button-add-car" >
+          <mat-icon>local_shipping</mat-icon>
+          <div>เพิ่มทะเบียนรถ</div>
+        </div>
+      </button>
+    </div>
+    <br>
+
+    <button (click)="check()" >Check</button>
+
+
+
+
+    <section formArrayName="cars">
+      <div *ngFor="let orderItem of getControls(); let i = index" [formGroupName]="i"
+        fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="40px">
+
+        <div fxFill fxLayout="row" fxLayoutAlign="start start" fxLayoutAlign.gt-xs="start start"
+          fxLayoutGap="10px">
+
+          <div class="col-1" fxFlex="20px" >
+            <h3>{{i+1}}</h3>
+          </div>
+
+          <div class="col-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start"
+            fxLayoutGap="10px">
+
+            <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="30%">
+              <mat-label>ทะเบียนรถ</mat-label>
+              <input matInput type="text" [patterns]="customPatterns" mask="XXX-0000||XX-0000"  formControlName="id" >
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="30%">
+              <mat-label>ทะเบียนรถ</mat-label>
+              <car-input formControlName="id" required></car-input>
+              <mat-hint></mat-hint>
+            </mat-form-field> -->
+
+            <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="40%">
+              <mat-label>จังหวัด</mat-label>
+              <input matInput type="text" formControlName="province"
+                [matAutocomplete]="autoProvince">
+              <mat-autocomplete autoActiveFirstOption #autoProvince="matAutocomplete">
+                <mat-option *ngFor="let province of filteredProvinces[i] | async" [value]="province.name">
+                  {{province.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="40%">
+              <mat-label>ประเภทรถ</mat-label>
+              <mat-select formControlName="type">
+                <mat-option *ngFor="let type of carType" [value]="type">
+                  {{type}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-3" >
+            <button mat-icon-button type="button" (click)="removeCar(i)">
+              <mat-icon  mat-list-icon>delete</mat-icon>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+
+  <br>
+
+  <!-- <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="10px">
+    <button mat-button color="warn" type="button" routerLink="/vendors">ยกเลิก</button>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+      <button mat-button type="button"  >ย้อนกลับ</button>
+      <button mat-flat-button color="primary" type="button" >บันทึก</button>
+    </div>
+
+  </div> -->
+</form>

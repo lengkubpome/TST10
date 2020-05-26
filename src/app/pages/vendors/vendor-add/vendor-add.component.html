@@ -1,0 +1,38 @@
+<mat-toolbar class="toolbar-nav">
+  <a [routerLink]="'/vendors'">ผู้ขาย</a>
+  <mat-icon>keyboard_arrow_right</mat-icon>
+  <span>เพิ่มผู้ขาย</span>
+</mat-toolbar>
+
+<div class="vendor-info-content"  >
+  <form [formGroup]="vendorForm">
+
+    <div>
+      value => {{vendorForm.value | json}}
+    </div>
+
+    <input type='text' mask="00.00.0000" [dropSpecialCharacters]="false">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="ข้อมูลผู้ขาย">
+        <div class="mat-tab-content">
+          <vendor-add-info (formReady)="formInitialized('info', $event)"></vendor-add-info>
+        </div>
+      </mat-tab>
+      <mat-tab label="รถส่งของ">
+        <div class="mat-tab-content">
+          <vendor-add-car-list (formReady)="formInitialized('carList', $event)"></vendor-add-car-list>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <div class="bottom-content" fxLayout="row" fxLayoutAlign="space-between start"
+      fxLayoutGap="10px">
+      <button mat-button color="warn" type="button" routerLink="/vendors">ยกเลิก</button>
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+        <!-- <button mat-button type="button">ลงทะเบียนรถ</button> -->
+        <button mat-flat-button color="primary" type="button" [disabled]="vendorForm.invalid">บันทึก</button>
+      </div>
+    </div>
+
+  </form>
+</div>

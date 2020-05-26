@@ -1,0 +1,74 @@
+<h3 mat-dialog-title>อัพโหลดรูป</h3>
+<mat-dialog-content>
+
+  <section *ngIf="loadding" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="gappx">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </section>
+  <section *ngIf="loadFail" fxLayout="col" fxLayoutAlign="center center" fxLayoutGap="gappx">
+    <b>ไฟล์ข้อมูลไม่ถูกต้อง กรุณาเลือกไฟล์รูปภาพ</b>
+  </section>
+  <section >
+    <div>
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [imageFile]="imageFile"
+        [maintainAspectRatio]="true" [containWithinAspectRatio]="containWithinAspectRatio"
+        [aspectRatio]="1" [resizeToWidth]="256" [cropperMinWidth]="128" [onlyScaleDown]="true"
+        [roundCropper]="false" [canvasRotation]="canvasRotation" [transform]="transform"
+        [alignImage]="'center'" [backgroundColor]="'#808080'" [cropper]="cropperPosition"
+        [style.display]="showCropper ? null : 'none'" format="png"
+        (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady($event)" (loadImageFailed)="loadImageFailed()"></image-cropper>
+    </div>
+    <!-- <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" /> -->
+  </section>
+  <section class="tool-image" *ngIf="showCropper">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="15px">
+
+      <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="10px">
+        <button mat-stroked-button matTooltip="หมุนซ้าย 90°" (click)="onRotateLeft90()">
+          <mat-icon>rotate_90_degrees_ccw</mat-icon>
+        </button>
+        <button mat-stroked-button matTooltip="หมุนขวา 90°" (click)="onRotateRight90()">
+          <mat-icon class="icon-rotate-180">rotate_90_degrees_ccw</mat-icon>
+        </button>
+
+
+        <button mat-stroked-button matTooltip="กลับภาพแนวนอน" (click)="flipHorizontal()">
+          <mat-icon>flip</mat-icon>
+        </button>
+        <button mat-stroked-button matTooltip="กลับภาพแนวตั้ง" (click)="flipVertical()">
+          <mat-icon class="icon-rotate-90">flip</mat-icon>
+        </button>
+
+      </div>
+
+
+      <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="10px">
+        <button mat-stroked-button matTooltip="ขยายภาพเข้า" (click)="zoomIn()">
+          <mat-icon>zoom_in</mat-icon>
+        </button>
+        <button mat-stroked-button matTooltip="ขยายภาพออก" (click)="zoomOut()">
+          <mat-icon>zoom_out</mat-icon>
+        </button>
+        <button mat-stroked-button matTooltip="ภาพเริ่มต้น" (click)="resetImage()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-slider class="slider-rotate" max="180" min="-180" [displayWith]="formatLabel"
+        [thumbLabel]="true" (input)="onRotate($event)"  [(ngModel)]="rotation">
+      </mat-slider>
+    </div>
+  </section>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxFill>
+    <button mat-button (click)="dialogRef.close()">ยกเลิก</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button mat-flat-button color="accent" *ngIf="!loadding && !loadFail"
+      (click)="onSave()">ตกลง</button>
+
+  </div>
+</mat-dialog-actions>

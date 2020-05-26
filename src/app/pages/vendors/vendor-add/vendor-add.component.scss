@@ -1,0 +1,61 @@
+:host {
+	width: 100%;
+}
+
+.vendor-info-content {
+	background-color: white;
+}
+
+.mat-tab-content, .bottom-content {
+	padding: 20px;
+}
+
+/* Navigation link styles */
+mat-toolbar.toolbar-nav {
+	background-color: transparent;
+	margin-top: -32px;
+}
+mat-toolbar.toolbar-nav > a,
+span {
+	text-decoration: none;
+	display: inline-block;
+	padding: 4px 8px;
+}
+
+mat-toolbar.toolbar-nav > span {
+	font-weight: bold;
+	// cursor: pointer;
+}
+
+mat-toolbar.toolbar-nav > a:visited,
+a:link {
+	color: #3c4043;
+}
+
+mat-toolbar.toolbar-nav > a:hover {
+	color: #039be5;
+}
+
+.avatar {
+	cursor: pointer;
+	text-align: center;
+
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+
+	-webkit-user-drag: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.button-profile {
+	color: rgba(0, 0, 0, 0.54);
+}
+.button-profile :hover {
+	color: #039be5;
+}
+
+.btn-add-car {
+	margin-top: 10.5px;
+}

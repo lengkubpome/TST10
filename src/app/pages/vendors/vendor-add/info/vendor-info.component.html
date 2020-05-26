@@ -1,0 +1,109 @@
+<form [formGroup]="infoFormGroup">
+  <!-- <ng-template matStepLabel>ข้อมูลผู้ขาย</ng-template> -->
+  <!-- Content Stepper 1  -->
+  <div fxLayout="column" fxLayoutAlign="start center " fxLayoutGap="10px">
+    <ngx-avatar size="150" name="John Doe" [src]="profile.imageProfile" class="avatar"
+      (clickOnAvatar)="onGetFile()"></ngx-avatar>
+    <input type="file" accept="image/*" formControlName="profile" (change)="getFile($event)"
+      #fileUpload hidden>
+
+    <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
+      <button mat-icon-button type="button" class="button-profile" (click)="onGetFile()"
+        *ngIf="!profile.hasFile">
+        <mat-icon>save_alt</mat-icon>
+      </button>
+      <button mat-icon-button class="button-profile" (click)="onGetFile()"
+        *ngIf="profile.hasFile">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="button-profile" (click)="onDeleteImageProfile()"
+        *ngIf="profile.hasFile">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+
+  </div>
+
+  <br>
+  <h3>ข้อมูลส่วนตัว</h3>
+
+  <div fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start"
+    fxLayoutGap="10px">
+    <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="50%">
+      <mat-label>ชื่อ</mat-label>
+      <input matInput placeholder="ชื่อ" formControlName="firstname">
+    </mat-form-field>
+    <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="50%">
+      <mat-label>นามสกุล</mat-label>
+      <input matInput placeholder="นามสกุล" formControlName="lastname">
+    </mat-form-field>
+  </div>
+
+  <div fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start"
+    fxLayoutGap="10px">
+    <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="50%">
+      <mat-label>รหัสประจำตัว</mat-label>
+      <input matInput placeholder="รหัสประจำตัว" mask="0 0000 00000 00 0" formControlName="id">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="50%">
+      <mat-label>วันเกิด</mat-label>
+      <input matInput placeholder="วันเกิด" [matDatepicker]="picker"
+        formControlName="birthdate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+    <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="50%">
+      <mat-label>เบอร์ติดต่อ</mat-label>
+      <input matInput type="text" placeholder="เบอร์โทรศัพท์" mask="000-000-0000" formControlName="phone">
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <br>
+
+  <div formGroupName="address">
+
+    <h3>ข้อมูลที่อยู่</h3>
+
+    <div fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start"
+      fxLayoutGap="10px">
+      <mat-form-field appearance="fill" fxFill>
+        <mat-label>ที่อยู่</mat-label>
+        <input matInput placeholder="ที่อยู่" formControlName="address1">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+      <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="50%">
+        <mat-label>อำเภอ</mat-label>
+        <input matInput placeholder="อำเภอ" formControlName="city">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFill fxFlex.gt-xs="50%">
+        <mat-label>จังหวัด</mat-label>
+        <input matInput type="text" formControlName="province" [matAutocomplete]="autoProvince">
+        <mat-autocomplete autoActiveFirstOption #autoProvince="matAutocomplete">
+          <mat-option *ngFor="let province of filteredProvinces | async"
+            [value]="province.name">
+            {{province.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </div>
+
+    <br>
+
+    <br>
+<!--
+    <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="10px">
+      <button mat-button color="warn" type="button" routerLink="/vendors">ยกเลิก</button>
+      <button mat-button color="primary" type="button"   [disabled]="firstFormGroup.invalid">ถัดไป</button>
+    </div> -->
+
+  </div>
+</form>

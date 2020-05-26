@@ -1,0 +1,82 @@
+:host{
+  width: 100%;
+}
+
+
+/* Navigation link styles */
+mat-toolbar.toolbar-nav{
+  background-color: transparent;
+  margin-top: -32px;
+}
+mat-toolbar.toolbar-nav >a,span{
+  text-decoration: none;
+  display: inline-block;
+  padding: 4px 8px;
+}
+
+mat-toolbar.toolbar-nav >span{
+  font-weight: bold;
+  // cursor: pointer;
+}
+
+mat-toolbar.toolbar-nav >a:visited, a:link{
+  color: #3c4043;
+}
+
+mat-toolbar.toolbar-nav >a:hover{
+  color: #039be5;
+}
+
+
+mat-form-field.input_search{
+  width: 300px;
+}
+
+table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}
+
+button.mat-menu-item{
+  margin: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: rgb(222, 246, 255);
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+:host{
+  width: 100%;
+}
+
+mat-form-field.input_search{
+  width: 300px;
+}
+
+table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}
+
+button.mat-menu-item{
+  margin: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: rgb(222, 246, 255);
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+

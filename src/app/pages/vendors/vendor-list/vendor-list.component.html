@@ -1,0 +1,71 @@
+<mat-toolbar class="toolbar-nav" >
+  <span>ผู้ขาย</span>
+</mat-toolbar>
+
+<div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="20px">
+  <mat-form-field appearance="outline" class="input_search">
+    <mat-label>ค้นหาผู้ขาย</mat-label>
+    <input matInput (keyup)="applyFilter($event)"
+      placeholder="ชื่อ-นามสกุล, ทะเบียนรถ, เบอร์โทร...">
+    <mat-icon matSuffix>search</mat-icon>
+    <!-- <mat-hint>พิมพ์ทะเบียนรถ, ชื่อ-นามสกุล, เลขบัรตรประชาชน, เบอร์โทรศัพท์</mat-hint> -->
+  </mat-form-field>
+
+</div>
+
+<button mat-raised-button color="accent" (click)="onAddVendor()">
+  <mat-icon class="mat-18">add</mat-icon>&nbsp;
+  ค้นหา
+</button>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+  <ng-container matColumnDef="fullName">
+    <th mat-header-cell *matHeaderCellDef> ชื่อ - นามสกุล </th>
+    <td mat-cell *matCellDef="let element">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <ngx-avatar size="42" [src]="element.photo"></ngx-avatar>
+        <span>{{element.fullName}}</span>
+
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="'carList'">
+    <th mat-header-cell *matHeaderCellDef> ทะเบียนรถ </th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngFor="let car of element.carList">
+        {{car}}
+        &nbsp;
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef> เบอร์ติดต่อ </th>
+    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" class="example-element-row"
+    (click)="onContextMenu($event, row)"></tr>
+</table>
+
+<!-- menu  -->
+<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="triggerMenu">
+</div>
+<mat-menu #triggerMenu="matMenu">
+  <ng-template matMenuContent let-vendor="vendor">
+
+    <button mat-menu-item (click)="onContextMenuAction1(vendor)">
+      <mat-icon>assignment</mat-icon>
+      <span>ข้อมูล</span>
+    </button>
+    <button mat-menu-item (click)="onContextMenuAction2(vendor)">
+      <mat-icon>print</mat-icon>
+      <span>พิมพ์</span>
+    </button>
+  </ng-template>
+</mat-menu>
